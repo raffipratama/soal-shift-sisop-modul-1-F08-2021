@@ -70,11 +70,11 @@ done
 
 #cat error_message.csv
 ```
-1)memberi header
-2)menginput tiap data di $ERRORdetail di tampung di $list untuk dilakukan looping
-3)data dari $list setelah " " di cut  untuk dimasukkan pada $error
-4)data dari $list sebelum " " di cut untuk dimasukkan pada $errorcount
-5)menampilkan $error dan $errorcount kemudian dimassukkan file error_message.csv
+1) memberi header
+2) menginput tiap data di $ERRORdetail di tampung di $list untuk dilakukan looping
+3) data dari $list setelah " " di cut  untuk dimasukkan pada $error
+4) data dari $list sebelum " " di cut untuk dimasukkan pada $errorcount
+5) menampilkan $error dan $errorcount kemudian dimassukkan file error_message.csv
 
 ## Penjelasan NO 2 : TokoShiShop
 Steven dan Manis mendirikan sebuah startup bernama “TokoShiSop”. Sedangkan kamu dan Clemong adalah karyawan pertama dari TokoShiSop. Setelah tiga tahun bekerja, Clemong diangkat menjadi manajer penjualan TokoShiSop, sedangkan kamu menjadi kepala gudang yang mengatur keluar masuknya barang.
