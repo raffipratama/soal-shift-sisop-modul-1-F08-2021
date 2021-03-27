@@ -46,19 +46,17 @@ errorUser=$(grep  'ERROR'  $syslog | sed 's/^.*(//' | cut -d ")" -f1 | sort | un
 4) melakukan sort
 5) menghilangkan duplikat dan menghitungnya
 
-#echo "ERROR"
-#echo "$errorUser"
+
 
 ```
 infoUser=$(grep 'INFO' $syslog | sed 's/^.*(//' | cut -d ")" -f1 | sort | uniq -c)
+
 ```
 1) melakukan grep kepada kata INFO di tiap line
 2) menghilangkan kata dari awal sampai simbol '(' terakhir tiap line
 3) menghilangkan karakter mulai simbol ')' sampai akhir kalimat tiap line
 4) melakukan sort
 5) menghilangkan duplikat dan menghitungnya
-#echo "INFO"
-#echo "$infoUser
 
 (d) Semua informasi yang didapatkan pada poin b dituliskan ke dalam file error_message.csv dengan header Error,Count yang kemudian diikuti oleh daftar pesan error dan jumlah kemunculannya diurutkan berdasarkan jumlah kemunculan pesan error dari yang terbanyak.
 ```
