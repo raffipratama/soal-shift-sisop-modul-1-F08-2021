@@ -8,6 +8,70 @@ M. Akmal Joedhiawan | 05111940000125
 Nur Moh. Ihsanuddien | 05111940000142
 
 ## Penjelasan NO 1
+Ryujin baru saja diterima sebagai IT support di perusahaan Bukapedia. Dia diberikan tugas untuk membuat laporan harian untuk aplikasi internal perusahaan, ticky. Terdapat 2 laporan yang harus dia buat, yaitu laporan daftar peringkat pesan error terbanyak yang dibuat oleh ticky dan laporan penggunaan user pada aplikasi ticky. Untuk membuat laporan tersebut, Ryujin harus melakukan beberapa hal berikut:
+
+**a** Mengumpulkan informasi dari log aplikasi yang terdapat pada file syslog.log. Informasi yang diperlukan jenis log (ERROR/INFO), pesan log, dan username pada setiap baris lognya. 
+
+#1a
+syslog='syslog.log'
+
+
+ERROR=$(grep 'ERROR' $syslog  | sed 's/^.*://')  
+INFO=$(grep 'INFO' $syslog | sed 's/^.*://')
+
+#echo "$ERROR"
+#echo "$INFO
+
+1) mencari kata yang diawali oleh ERROR dan INFO di tiap line-nya
+2) menghapus kata yang berada sebelum simbol ' : '
+
+**b**	Menampilkan semua pesan error yang muncul beserta jumlah kemunculannya.
+
+ERRORdetail=$(grep 'ERROR' $syslog  | sed 's/^.*R//' | sed 's/(.*//' | sort | uniq -c| sort -nr)
+1) melakukan grep kepada kata ERROR di tiap line
+2) menghilangkan kata dari awal sampai karakter R terakhir tiap line
+3) menghilangkan karakter mulai simbol '(' sampai akhir kalimat tiap line
+4) melakukan sorting
+5) menghapus duplikat dan menghitungnya
+6) melakukan sort berdasarkan banyak duplikat secara ascending
+
+**c** Menampilkan jumlah kemunculan log ERROR dan INFO untuk setiap user-nya.
+
+errorUser=$(grep  'ERROR'  $syslog | sed 's/^.*(//' | cut -d ")" -f1 | sort | uniq -c)
+1) melakukan grep kepada kata ERROR di tiap line
+2) menghilangkan kata dari awal sampai simbol '(' terakhir tiap line
+3) menghilangkan karakter mulai simbol ')' sampai akhir kalimat tiap line
+4) melakukan sort
+5) menghilangkan duplikat dan menghitungnya
+#echo "ERROR"
+#echo "$errorUser"
+
+infoUser=$(grep 'INFO' $syslog | sed 's/^.*(//' | cut -d ")" -f1 | sort | uniq -c)
+1) melakukan grep kepada kata INFO di tiap line
+2) menghilangkan kata dari awal sampai simbol '(' terakhir tiap line
+3) menghilangkan karakter mulai simbol ')' sampai akhir kalimat tiap line
+4) melakukan sort
+5) menghilangkan duplikat dan menghitungnya
+#echo "INFO"
+#echo "$infoUser
+
+(d) Semua informasi yang didapatkan pada poin b dituliskan ke dalam file error_message.csv dengan header Error,Count yang kemudian diikuti oleh daftar pesan error dan jumlah kemunculannya diurutkan berdasarkan jumlah kemunculan pesan error dari yang terbanyak.
+
+echo "Error,Count" > error_message.csv
+echo "$ERRORdetail" | while read list
+do 
+ error=$(echo $list | cut -d' ' -f2-)
+ errorcount=$(echo $list | cut -d' ' -f 1)
+ echo "$error,$errorcount" >> error_message.csv
+done
+
+#cat error_message.csv
+
+1)memberi header
+2)menginput tiap data di $ERRORdetail di tampung di $list untuk dilakukan looping
+3)data dari $list setelah " " di cut  untuk dimasukkan pada $error
+4)data dari $list sebelum " " di cut untuk dimasukkan pada $errorcount
+5)menampilkan $error dan $errorcount kemudian dimassukkan file error_message.csv
 
 ## Penjelasan NO 2 : TokoShiShop
 Steven dan Manis mendirikan sebuah startup bernama “TokoShiSop”. Sedangkan kamu dan Clemong adalah karyawan pertama dari TokoShiSop. Setelah tiga tahun bekerja, Clemong diangkat menjadi manajer penjualan TokoShiSop, sedangkan kamu menjadi kepala gudang yang mengatur keluar masuknya barang.
