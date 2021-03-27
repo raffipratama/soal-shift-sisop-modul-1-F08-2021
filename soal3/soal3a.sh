@@ -2,7 +2,7 @@
 
 for a in {1..23}
 do
-	wget -O "Koleksi_$a.jpg" https://loremflickr.com/320/240/kitten 2>> Foto.log | sort -k 23 -n -r
+	wget -O "Koleksi_$a.jpg" https://loremflickr.com/320/240/kitten 2>> Foto.log 
 done
 
 jml=23
