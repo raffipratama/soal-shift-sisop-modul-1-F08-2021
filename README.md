@@ -201,6 +201,113 @@ Penjelasan :
 - `bash ~/home/akmal/Desktop/Akmal/Praktikum1/3/3b.sh` menjalankan script soal3b.sh sesuai dengan syarat diatas
 
 ### c. Mendowload 2 link berbeda 
+Soal no. c memiliki cara pengerjaan yang hampir sama dengan soal a, namun bedanya terletak pada 2 link yang harus didownload setiap harinya berbeda
+```
+#!/bin/bash
 
- 
+now=$(date +"%d-%m-%Y" )
+jml=23
+kuc=$(ls | grep -e "Kucing.*" | wc -l)
+kel=$(ls | grep -e "Kelinci.*" | wc -l)
+if [[ $kuc -eq $kel ]] ;
+then
+	mkdir "Kucing_$now"
+	for (( a=1; a<=jml; a++ ))
+	do
+		wget -O "Koleksi_$a.jpg" https://loremflickr.com/320/240/kitten 2>> Foto.log
+	done
+
+	for (( a=1; a<=jml; a++ ))
+	do
+		for (( b=a+1; b<=jml; b++ ))
+		do
+			cmp -s Koleksi_$a.jpg Koleksi_$b.jpg
+			compare=$?
+			if [ $compare -eq 0 ]
+			then
+				rm Koleksi_$b.jpg
+				let jml=$jml-1
+				let b=$b-1
+			fi
+		done
+	done
+	num=1
+	for file in *.jpg;
+	do
+		if [ $num -le 9 ]
+		then 
+			mv "$file" "Koleksi_0${num}.jpg"
+			let num=$num+1
+		else
+			mv "$file" "Koleksi_${num}.jpg"
+			let num=$num+1
+		fi
+	done
+	mv ./Koleksi_* "./Kucing_$now/"
+	mv ./Foto.log "./Kucing_$now/"
+else
+	mkdir "Kelinci_$now"
+	for (( a=1; a<=jml; a++ ))
+	do
+		wget -O "Koleksi_$a.jpg" https://loremflickr.com/320/240/bunny -a Foto.log
+	done
+	
+	for (( a = 1; a<=jml; a++ ))
+	do
+		for (( b=a+1; b<=jml; b++ ))
+		do
+			cmp -s Koleksi_$a.jpg Koleksi_$b.jpg
+			compare=$?
+			if [ $compare -eq 0 ]
+			then
+				rm Koleksi_$b.jpg 
+				let jml=$jml-1
+				let b=$b-1
+			fi
+		done
+	done
+	num=1
+	for file in *.jpg; 
+	do
+		if [ $num -le 9 ]
+		then
+			mv "$file" "Koleksi_0${num}.jpg"
+			let num=$num+1
+		else
+			mv "$file" "Koleksi_${num}.jpg"
+			let num=$num+1
+		fi
+	done
+	mv ./Koleksi_* "./Kelinci_$now/"
+	mv ./Foto.log "./Kelinci_$now/"
+fi
+```
+Penjelasan :
+- `kuc=$(ls | grep -e "Kucing.*" | wc -l), kel=$(ls | grep -e "Kelinci.*" | wc -l)` digunakan untuk menginisialisasi kapan waktu kitten didownloan dan bunny didownload
+- `if [[ $kuc -eq $kel ]] ;` mengecek link mana yang harus didownload
+- Untuk proses download file serupa dengan no. 3a bedanya hanya pada pembuatan direktori kucing `mkdir "Kucing_$now"` dan direktori kelinci `mkdir "Kelinci_%now"`
+- Kemudian memindahkan foto ke dalam direktori kelinci `mv ./Koleksi_* "./Kelinci_$now/"` atau ke dalam direktori kucing `mv ./Koleksi_* "./Kelinci_$now/"`  sesuai jenis foto
+
+### d. Zip file 
+```
+#!/bin/bash
+
+Now="%d%m%Y"
+Password=$(date +"$Now")
+zip -P $"Password" -r -m Koleksi.zip ./Kelinci* ./Kucing*
+```
+Penjelasan :
+- `Now="%d%m%Y"` mengecek tanggal saat ini
+- `Password=$(date +"$Now")` membuat password berdasar tanggal saat ini
+- `zip -P $"Password" -r -m Koleksi.zip ./Kelinci* ./Kucing*` maksud line berikut adalah buat suatu zip file dengan password tanggal saat ini mengecek apakah direktori kelinci dan kucing readable dan memindahkannya kedalam Koleksi.zip
+
+### e. Jadwal Zip dan Unzip
+```
+0 7 * * 1-5 bash ~/home/akmal/Desktop/Akmal/Praktikum1/3/3d.sh
+
+0 18 * * 1-5 unzip -P `date +"%d%m%Y"` Koleksi.zip && rm Koleksi.zip
+```
+Penjelasan :
+- `0 7 * * 1-5 bash ~/home/akmal/Desktop/Akmal/Praktikum1/3/3d.sh` maksud dari line ini adalah dari mulai pukul 07.00 selama hari Senin - Jumat lakukan script 3d yang mana isinya adalah perintah untuk melakukan zip file
+- `0 18 * * 1-5 unzip -P `date +"%d%m%Y"` Koleksi.zip && rm Koleksi.zip` maksud dari line ini adalah dari pukul 18.00 selama hari Senin - Jumat melakukan unzip file dengan password tanggal saat ini dan menghapus file Koleksi.zip
 
