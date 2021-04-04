@@ -38,27 +38,29 @@ ERRORdetail=$(grep 'ERROR' $syslog  | sed 's/^.*R//' | sed 's/(.*//' | sort | un
 
 **c** Menampilkan jumlah kemunculan log ERROR dan INFO untuk setiap user-nya.
 ```
-errorUser=$(grep  'ERROR'  $syslog | sed 's/^.*(//' | cut -d ")" -f1 | sort | uniq -c)
+userDetail=$(grep -oP  '(?<=\().*(?=\))' $syslog | sort | uniq  ))
 ```
-1) melakukan grep kepada kata ERROR di tiap line
-2) menghilangkan kata dari awal sampai simbol '(' terakhir tiap line
-3) menghilangkan karakter mulai simbol ')' sampai akhir kalimat tiap line
-4) melakukan sort
-5) menghilangkan duplikat dan menghitungnya
+1) melakukan grep kepada kata didalam bracket untuk mendapatkan nama user
+2) melakukan sort
+3) menghilangkan duplikat
+
+setelah mendapatkan nama-nama user di variabel $userDetail dilakukan iterasi untuk mencari jumlah error dan info tiap user 
 
 
-
-```
-infoUser=$(grep 'INFO' $syslog | sed 's/^.*(//' | cut -d ")" -f1 | sort | uniq -c)
 
 ```
-1) melakukan grep kepada kata INFO di tiap line
-2) menghilangkan kata dari awal sampai simbol '(' terakhir tiap line
-3) menghilangkan karakter mulai simbol ')' sampai akhir kalimat tiap line
-4) melakukan sort
-5) menghilangkan duplikat dan menghitungnya
+for user in $userDetail
+do
+ ErrUser=$(grep -cP "ERROR.*($user)" $syslog)
+ InfoUser=$(grep -cP "INFO.*($user)" $syslog)
+ #echo "$user,$ErrUser,$InfoUser"
+done
+```
+1) $ErrUser menampung hasil jumlah pencarian kata ERROR pada line yang terdapat nama user yang disimpan di $user 
+2) $InfoUser menampung hasil jumlah pencarian kata ERROR pada line yang terdapat nama user yang disimpan di $user 
 
-(d) Semua informasi yang didapatkan pada poin b dituliskan ke dalam file error_message.csv dengan header Error,Count yang kemudian diikuti oleh daftar pesan error dan jumlah kemunculannya diurutkan berdasarkan jumlah kemunculan pesan error dari yang terbanyak.
+
+**d** Semua informasi yang didapatkan pada poin b dituliskan ke dalam file error_message.csv dengan header Error,Count yang kemudian diikuti oleh daftar pesan error dan jumlah kemunculannya diurutkan berdasarkan jumlah kemunculan pesan error dari yang terbanyak.
 ```
 echo "Error,Count" > error_message.csv
 echo "$ERRORdetail" | while read list
@@ -74,7 +76,23 @@ done
 2) menginput tiap data di $ERRORdetail di tampung di $list untuk dilakukan looping
 3) data dari $list setelah " " di cut  untuk dimasukkan pada $error
 4) data dari $list sebelum " " di cut untuk dimasukkan pada $errorcount
-5) menampilkan $error dan $errorcount kemudian dimassukkan file error_message.csv
+5) menampilkan $error dan $errorcount kemudian dimasukkan file error_message.csv
+
+**e**  Semua informasi yang didapatkan pada poin c dituliskan ke dalam file user_statistic.csv dengan header Username,INFO,ERROR diurutkan berdasarkan username secara ascending.
+
+```
+echo "Username,INFO,ERROR" > user_statistic.csv
+echo "$userDetail" | while read userlist
+do 
+ countError=$(grep -cP "ERROR.*($userlist)" $syslog)
+ countInfo=$(grep -cP "INFO.*($userlist)" $syslog)
+ echo "$userlist,$countInfo,$countError" >> user_statistic.csv
+done
+```
+1) memberi header dan memasukkan sekaligus membuat file user_statistic.csv
+2) menginput tiap data di $userDetail pada "1c" di tampung di $userlist untuk dilakukan looping
+3) Penghitungan ERROR dan INFO tiap user sama seperti metode "1c" dan disini dimasukkan ke $countError dan $countInfo
+4) menampilkan "$userlist,$countInfo,$countError"  dan dijadikan input ke user_statistic.csv
 
 ## Penjelasan NO 2 : TokoShiShop
 Steven dan Manis mendirikan sebuah startup bernama “TokoShiSop”. Sedangkan kamu dan Clemong adalah karyawan pertama dari TokoShiSop. Setelah tiga tahun bekerja, Clemong diangkat menjadi manajer penjualan TokoShiSop, sedangkan kamu menjadi kepala gudang yang mengatur keluar masuknya barang.
