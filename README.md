@@ -116,7 +116,7 @@ Penjelasan :
 
 **Kesulitan**
 
-	Untuk kesulitan terdapat pada mencari option command setelah grep yang sesuai dengan hasil yang diinginkan.  
+	Pada pengerjaan semua sub soal 1 untuk kesulitan terdapat pada mencari option command yang sesuai dengan hasil yang diinginkan.  
 	
 ## Penjelasan NO 2 : TokoShiShop
 Steven dan Manis mendirikan sebuah startup bernama “TokoShiSop”. Sedangkan kamu dan Clemong adalah karyawan pertama dari TokoShiSop. Setelah tiga tahun bekerja, Clemong diangkat menjadi manajer penjualan TokoShiSop, sedangkan kamu menjadi kepala gudang yang mengatur keluar masuknya barang.
