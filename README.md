@@ -419,3 +419,6 @@ Penjelasan :
 Penjelasan :
 - `0 7 * * 1-5 bash ~/home/akmal/Desktop/Akmal/Praktikum1/3/soal3d.sh` maksud dari line ini adalah dari mulai pukul 07.00 selama hari Senin - Jumat lakukan script 3d yang mana isinya adalah perintah untuk melakukan zip file
 - `0 18 * * 1-5 unzip -P `date +"%d%m%Y"` Koleksi.zip && rm Koleksi.zip` maksud dari line ini adalah dari pukul 18.00 selama hari Senin - Jumat melakukan unzip file dengan password tanggal saat ini dan menghapus file Koleksi.zip
+
+**Kesulitan**
+- Pada soal 3a dan 3c kesulitan terletak pada pengerjaan harus menggunakan awk
