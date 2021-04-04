@@ -222,7 +222,7 @@ Kuuhaku adalah orang yang sangat suka mengoleksi foto-foto digital, namun Kuuhak
 
 for a in {1..23}
 do
-	wget -O "Koleksi_$a.jpg" https://loremflickr.com/320/240/kitten 2>> Foto.log | sort -k 23 -n -r
+	wget -O "Koleksi_$a.jpg" https://loremflickr.com/320/240/kitten 2>> Foto.log 
 done
 
 jml=23
@@ -395,4 +395,3 @@ Penjelasan :
 Penjelasan :
 - `0 7 * * 1-5 bash ~/home/akmal/Desktop/Akmal/Praktikum1/3/soal3d.sh` maksud dari line ini adalah dari mulai pukul 07.00 selama hari Senin - Jumat lakukan script 3d yang mana isinya adalah perintah untuk melakukan zip file
 - `0 18 * * 1-5 unzip -P `date +"%d%m%Y"` Koleksi.zip && rm Koleksi.zip` maksud dari line ini adalah dari pukul 18.00 selama hari Senin - Jumat melakukan unzip file dengan password tanggal saat ini dan menghapus file Koleksi.zip
-
