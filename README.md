@@ -25,6 +25,9 @@ INFO=$(grep 'INFO' $syslog | sed 's/^.*://')
 1) mencari kata yang diawali oleh ERROR dan INFO di tiap line-nya
 2) menghapus kata yang berada sebelum simbol ' : '
 
+#Screenshoot
+![Screenshot (588)](https://user-images.githubusercontent.com/65032157/113509506-3146ad00-9580-11eb-9a48-caf6c13ed220.png)
+
 **b**	Menampilkan semua pesan error yang muncul beserta jumlah kemunculannya.
 ```
 ERRORdetail=$(grep 'ERROR' $syslog  | sed 's/^.*R//' | sed 's/(.*//' | sort | uniq -c| sort -nr)
