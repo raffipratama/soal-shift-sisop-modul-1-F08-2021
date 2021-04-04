@@ -309,6 +309,10 @@ Penjelasan :
 - `0 20 1-31/7,2-31/4 * *` maksud dari potongan tersebut adalah setiap jam 8 malam mulai dari tanggal 1 tujuh hari sekali dan setiap 4 hari sekali dimulai tanggal 2
 - `bash ~/home/akmal/Desktop/Akmal/Praktikum1/3/soal3b.sh` menjalankan script soal3b.sh sesuai dengan syarat diatas
 
+**Screenshoot soal3a dan soal 3b**
+![Capture](https://user-images.githubusercontent.com/74102918/113512546-568ee780-958f-11eb-9692-1bbdc524b90a.JPG)
+
+
 ### c. Mendowload 2 link berbeda 
 Soal no. c memiliki cara pengerjaan yang hampir sama dengan soal a, namun bedanya terletak pada 2 link yang harus didownload setiap harinya berbeda
 ```
@@ -409,6 +413,10 @@ Penjelasan :
 - `Now="%d%m%Y"` mengecek tanggal saat ini
 - `Password=$(date +"$Now")` membuat password berdasar tanggal saat ini
 - `zip -P $"Password" -r -m Koleksi.zip ./Kelinci* ./Kucing*` maksud line berikut adalah buat suatu zip file dengan password tanggal saat ini mengecek apakah direktori kelinci dan kucing readable dan memindahkannya kedalam Koleksi.zip
+
+**Screenshoot soal 3c dan soal 3d**
+![Capture2](https://user-images.githubusercontent.com/74102918/113512573-73c3b600-958f-11eb-9d08-2b10350e667b.JPG)
+
 
 ### e. Jadwal Zip dan Unzip
 ```
