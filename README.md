@@ -265,7 +265,7 @@ Penjelasan :
 ```
 #!/bin/bash
 
-bash ./3a.sh
+bash ./soal3a.sh
 
 tanggal_unduh=$(date +"%d-%m-%Y")
 mkdir "$tanggal_unduh"
@@ -274,16 +274,16 @@ mv ./Koleksi_* "./$tanggal_unduh/"
 mv ./Foto.log "./$tanggal_unduh/"
 ``` 
 Penjelasan :
-- Menjalankan script soal3a.sh `bash ./3a.sh` 
+- Menjalankan script soal3a.sh `bash ./soal3a.sh` 
 - melakukan set tanggal saat ini `tanggal_unduh=$(date +"%d-%m-%Y")` dan membuat direktori baru `mkdir "$tanggal_unduh"
 - Memindahkan file gambar `mv ./Koleksi_* "./$tanggal_unduh/"` dan file log `mv ./Foto.log "./$tanggal_unduh/"` ke dalam folder direktori baru
 - dilanjutkan menset waktu unduhan
 ```
-0 20 1-31/7,2-31/4 * * bash ~/home/akmal/Desktop/Akmal/Praktikum1/3/3b.sh
+0 20 1-31/7,2-31/4 * * bash ~/home/akmal/Desktop/Akmal/Praktikum1/3/soal3b.sh
 ```
 Penjelasan :
 - `0 20 1-31/7,2-31/4 * *` maksud dari potongan tersebut adalah setiap jam 8 malam mulai dari tanggal 1 tujuh hari sekali dan setiap 4 hari sekali dimulai tanggal 2
-- `bash ~/home/akmal/Desktop/Akmal/Praktikum1/3/3b.sh` menjalankan script soal3b.sh sesuai dengan syarat diatas
+- `bash ~/home/akmal/Desktop/Akmal/Praktikum1/3/soal3b.sh` menjalankan script soal3b.sh sesuai dengan syarat diatas
 
 ### c. Mendowload 2 link berbeda 
 Soal no. c memiliki cara pengerjaan yang hampir sama dengan soal a, namun bedanya terletak pada 2 link yang harus didownload setiap harinya berbeda
@@ -388,11 +388,11 @@ Penjelasan :
 
 ### e. Jadwal Zip dan Unzip
 ```
-0 7 * * 1-5 bash ~/home/akmal/Desktop/Akmal/Praktikum1/3/3d.sh
+0 7 * * 1-5 bash ~/home/akmal/Desktop/Akmal/Praktikum1/3/soal3d.sh
 
 0 18 * * 1-5 unzip -P `date +"%d%m%Y"` Koleksi.zip && rm Koleksi.zip
 ```
 Penjelasan :
-- `0 7 * * 1-5 bash ~/home/akmal/Desktop/Akmal/Praktikum1/3/3d.sh` maksud dari line ini adalah dari mulai pukul 07.00 selama hari Senin - Jumat lakukan script 3d yang mana isinya adalah perintah untuk melakukan zip file
+- `0 7 * * 1-5 bash ~/home/akmal/Desktop/Akmal/Praktikum1/3/soal3d.sh` maksud dari line ini adalah dari mulai pukul 07.00 selama hari Senin - Jumat lakukan script 3d yang mana isinya adalah perintah untuk melakukan zip file
 - `0 18 * * 1-5 unzip -P `date +"%d%m%Y"` Koleksi.zip && rm Koleksi.zip` maksud dari line ini adalah dari pukul 18.00 selama hari Senin - Jumat melakukan unzip file dengan password tanggal saat ini dan menghapus file Koleksi.zip
 
