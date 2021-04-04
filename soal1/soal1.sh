@@ -16,15 +16,15 @@ ERRORdetail=$(grep 'ERROR' $syslog  | sed 's/^.*R//' | sed 's/(.*//' | sort | un
 #echo "$ERRORdetail"
 
 #1c
+echo "Name,Error_Count,Info_Count"
+userDetail=$(grep -oP  '(?<=\().*(?=\))' $syslog | sort | uniq  )
 
-errorUser=$(grep  'ERROR'  $syslog | sed 's/^.*(//' | cut -d ")" -f1 | sort | uniq -c)
-
-#echo "ERROR"
-#echo "$errorUser"
-
-infoUser=$(grep 'INFO' $syslog | sed 's/^.*(//' | cut -d ")" -f1 | sort | uniq -c)
-#echo "INFO"
-#echo "$infoUser"
+for user in $userDetail
+do
+ ErrUser=$(grep -cP "ERROR.*($user)" $syslog)
+ InfoUser=$(grep -cP "INFO.*($user)" $syslog)
+ #echo "$user,$ErrUser,$InfoUser"
+done
 
 #1d
 echo "Error,Count" > error_message.csv
@@ -36,3 +36,15 @@ do
 done
 
 #cat error_message.csv
+
+#1e
+
+echo "Username,INFO,ERROR" > user_statistic.csv
+echo "$userDetail" | while read userlist
+do 
+ countError=$(grep -cP "ERROR.*($userlist)" $syslog)
+ countInfo=$(grep -cP "INFO.*($userlist)" $syslog)
+ echo "$userlist,$countInfo,$countError" >> user_statistic.csv
+done
+
+#cat user_statistic.csv
